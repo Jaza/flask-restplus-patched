@@ -19,7 +19,8 @@ setuptools.setup(
     description="Extends Flask-RESTplus so it can handle Marshmallow schemas and Webargs arguments.",
     long_description=open('README.rst').read(),
 
-    py_modules=['flask_restplus_patched'],
+    packages=['flask_restplus_patched'],
+    include_package_data=True,
     zip_safe=False,
     platforms='any',
 
