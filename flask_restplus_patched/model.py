@@ -1,4 +1,4 @@
-from apispec.ext.marshmallow.swagger import fields2jsonschema, field2property
+from apispec.ext.marshmallow.openapi import OpenAPIConverter
 import flask_marshmallow
 from werkzeug import cached_property
 
@@ -40,8 +40,9 @@ class Model(OriginalModel):
     @cached_property
     def __schema__(self):
         schema = self['__schema__']
+        openapi = OpenAPIConverter(openapi_version='2.0')
         if isinstance(schema, flask_marshmallow.Schema):
-            return fields2jsonschema(schema.fields)
+            return openapi.fields2jsonschema(schema.fields)
         elif isinstance(schema, flask_marshmallow.base_fields.FieldABC):
-            return field2property(schema)
+            return openapi.field2property(schema)
         raise NotImplementedError()
