@@ -9,11 +9,6 @@ from .swagger import Swagger
 
 class Api(OriginalApi):
 
-    @cached_property
-    def __schema__(self):
-        # The only purpose of this method is to pass custom Swagger class
-        return Swagger(self).as_dict()
-
     def init_app(self, app, **kwargs):
         # This solves the issue of late resources registration:
         # https://github.com/frol/flask-restplus-server-example/issues/110
