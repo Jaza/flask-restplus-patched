@@ -49,6 +49,17 @@ class PostFormParameters(Parameters):
                 field.metadata['location'] = 'form'
 
 
+class JSONParameters(Parameters):
+
+    def __init__(self, *args, **kwargs):
+        super(JSONParameters, self).__init__(*args, **kwargs)
+        for field in itervalues(self.fields):
+            if field.dump_only:
+                continue
+            if not field.metadata.get('location'):
+                field.metadata['location'] = 'json'
+
+
 class PatchJSONParameters(Parameters):
     """
     Base parameters class for handling PATCH arguments according to RFC 6902.
